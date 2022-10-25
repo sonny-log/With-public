@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title></title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/style.css">
+    <script src="js/jquery.min.js"></script>
+    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=980cb5bdc84e332d75c476760f95cb73"></script>
+   
+</head>
+<body>
+    <header>
+        <div class="wrap">
+            <a href="index.htm"><h1 id="docTitle"></h1></a>
+            <a href="#" class="Left"><img src="lib/img/arrow_left.png" alt="back" onClick="javascript:history.back(-1);"></a>
+            
+        </div>
+    
+        <nav>
+            <ul class="wrap">
+                <li id="menuOn_0"><a href="#" id="appMenu0"><img src="lib/img/toilet_icon.png">화장실</a></li>
+                <li id="menuOn_1"><a href="m_trash.htm?menu=1" id="appMenu1"><img src="lib/img/trash_icon.png">쓰레기통</a></li>
+                <li id="menuOn_2"><a href="m_car.htm" id="appMenu2"><img src="lib/img/car_icon.png">주차장</a></li>
+                <li id="menuOn_3"><a href="m_smoke.htm" id="appMenu3"><img src="lib/img/smoke_icon.png">흡연부스</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div id="content" class="content">
+        <div class="wrap">
+            <h2>흡연구역</h2>	
+            <div id="map" style="width:100%;height:700px;"></div>
+            
+        </div>
+    </div>
+
+    <script>
+        var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+		mapOption = { 
+			center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+			level: 4 // 지도의 확대 레벨 
+		}; 
+	
+	var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
+	map.addOverlayMapTypeId(kakao.maps.MapTypeId.TRAFFIC);
+	var option = {enableHighAccuracy: true}
+	// HTML5의 geolocation으로 사용할 수 있는지 확인합니다 
+	if (navigator.geolocation) {
+	
+	   
+		// GeoLocation을 이용해서 접속 위치를 얻어옵니다
+		navigator.geolocation.getCurrentPosition(function(position,option) {
+			
+			var lat = position.coords.latitude, // 위도
+				lon = position.coords.longitude, // 경도
+				error_range = position.coords.accuracy;
+			
+			var locPosition = new kakao.maps.LatLng(lat, lon), // 마커가 표시될 위치를 geolocation으로 얻어온 좌표로 생성합니다
+				message = '<div style="padding:5px;">현재위치: 마커에서 '+error_range+' m 떨어진 곳에 있음</div>'; // 인포윈도우에 표시될 내용입니다
+			
+			// 마커와 인포윈도우를 표시합니다
+			displayMarker(locPosition, message);
+				
+		  });
+		
+	} else { // HTML5의 GeoLocation을 사용할 수 없을때 마커 표시 위치와 인포윈도우 내용을 설정합니다
+		
+		var locPosition = new kakao.maps.LatLng(33.450701, 126.570667),    
+			message = 'geolocation을 사용할수 없어요..'
+			
+		displayMarker(locPosition, message);
+	}
+	
+	// 지도에 마커와 인포윈도우를 표시하는 함수입니다
+	function displayMarker(locPosition, message) {
+	
+		// 마커를 생성합니다
+		var marker = new kakao.maps.Marker({  
+			map: map, 
+			position: locPosition
+		}); 
+		
+		var iwContent = message, // 인포윈도우에 표시할 내용
+			iwRemoveable = true;
+	
+		// 인포윈도우를 생성합니다
+		var infowindow = new kakao.maps.InfoWindow({
+			content : iwContent,
+			removable : iwRemoveable
+		});
+		
+		// 인포윈도우를 마커위에 표시합니다 
+		infowindow.open(map, marker);
+		
+		// 지도 중심좌표를 접속위치로 변경합니다
+		map.setCenter(locPosition);    
+		console.log(locPosition);  
+	}    
+    </script>   
+    <script src="js/app.common.js"></script>
+    <!-- 주차장 위치를 표시합니다.  -->
+    <script src="db/smokeList.js"></script>
+    <script>
+
+    var imageSrc = './lib/img/smoke_icon.png', // 마커이미지의 주소입니다    
+        imageSize = new kakao.maps.Size(30, 30), // 마커이미지의 크기입니다
+        imageOption = {offset: new kakao.maps.Point(27, 69)}; // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.	
+
+    var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize, imageOption);
+
+
+    var infowindow = new kakao.maps.InfoWindow({
+            content: "흡연부스" // 인포윈도우에 표시할 내용
+        });
+
+    Object.keys(pos_smoke).forEach( key =>{
+        var smoke_marker = new kakao.maps.Marker({
+            map: map, // 마커를 표시할 지도
+            position: pos_smoke[key].latlng, // 마커의 위치
+            image: markerImage
+        });
+
+        var overlay = new kakao.maps.CustomOverlay({
+            position: smoke_marker.getPosition()
+        });
+
+        var Customcontent = document.createElement('div');
+        Customcontent.style.width = '170px';
+        Customcontent.style.height = '150px';
+        Customcontent.className = "over_wrap";
+
+        var info = document.createElement('div');
+        info.className = "over_info";
+        Customcontent.appendChild(info);
+
+        var title = document.createElement('div');
+        title.className = "over_title";
+        title.appendChild(document.createTextNode("흡연부스"))
+        info.appendChild(title);
+
+        var closeBtn = document.createElement("div");
+        closeBtn.className = "over_close";
+        closeBtn.setAttribute("title","닫기");
+        closeBtn.onclick = function(){overlay.setMap(null);};
+        title.appendChild(closeBtn);
+
+        var bodyContent = document.createElement("div");
+        bodyContent.className = "over_body";
+        info.appendChild(bodyContent);
+
+        var imgDiv = document.createElement("div");
+        imgDiv.className = "over_img";
+        bodyContent.appendChild(imgDiv);
+
+        var imgContent = document.createElement("img");
+        imgContent.setAttribute("src", "/lib/img/smoke_icon.png");
+        imgContent.setAttribute("width", "73");
+        imgContent.setAttribute("heigth", "70");
+        imgDiv.appendChild(imgContent);
+
+        var descContent = document.createElement("div");
+        descContent.className = "over_desc"
+        bodyContent.appendChild(descContent);
+
+        var LinkDiv = document.createElement("div");
+        descContent.appendChild(LinkDiv);
+
+        var url = ""
+
+        var LinkContent = document.createElement("a");
+        if (url == "")
+        {
+        url = "javascript:"
+        }
+        LinkContent.setAttribute("href", "#");
+        if (url != "javascript:")
+        {
+        LinkContent.setAttribute("target", "_blank");
+        }
+        LinkContent.className = "link";
+        LinkContent.appendChild(document.createTextNode("리뷰"));
+        LinkDiv.appendChild(LinkContent);
+
+        overlay.setContent(Customcontent);
+
+        kakao.maps.event.addListener(smoke_marker, 'mouseover', mouseOverListener(map,smoke_marker,infowindow ));
+        kakao.maps.event.addListener(smoke_marker, 'mouseout', mouseOutListener(infowindow));
+        kakao.maps.event.addListener(smoke_marker, 'click', clickListener(map,smoke_marker,overlay));
+    });
+
+
+    function mouseOverListener(map, smoke_marker,infowindow){
+        return function(){
+            infowindow.open(map, smoke_marker);
+        }
+    }
+
+    function mouseOutListener(infowindow) {
+        return function() {
+            infowindow.close();
+        };
+    }
+
+    var clickedOverlay = null;
+    function clickListener( map,smoke_marker,overlay ){
+        return function() {
+            if (clickedOverlay) {
+            clickedOverlay.setMap(null);
+            }
+            overlay.setMap(map);
+            clickedOverlay = overlay;
+            
+        };
+    }
+    </script>
+</body>
+</html>
