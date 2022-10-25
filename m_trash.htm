@@ -18,44 +18,26 @@
 <body>
 
 <header>
-	<div class="wrap">
-		<a href="index.htm"><h1 id="docTitle"></h1></a>
-		<a href="#" class="Left"><img src="lib/img/arrow_left.png" alt="back" onClick="javascript:history.back(-1);"></a>
-		
+	<div class = "menu">
+		<span class="show_menu">menu</span>
+		<div class="menu_content">
+			<a href="#" id="appMenu0">화장실</a>
+			<a href="m_trash.htm?menu=1" id="appMenu1">쓰레기통</a>
+			<a href="m_car.htm" id="appMenu2">주차장</a>
+			<a href="m_smoke.htm" id="appMenu3">흡연부스</a>
+		</div>
 	</div>
-
-	<nav>
-		<ul class="wrap">
-			<li id="menuOn_0"><a href="#" id="appMenu0"><img src="lib/img/toilet_icon.png">화장실</a></li>
-			<li id="menuOn_1"><a href="m_trash.htm?menu=1" id="appMenu1"><img src="lib/img/trash_icon.png">쓰레기통</a></li>
-			<li id="menuOn_2"><a href="m_car.htm" id="appMenu2"><img src="lib/img/car_icon.png">주차장</a></li>
-			<li id="menuOn_3"><a href="m_smoke.htm" id="appMenu3"><img src="lib/img/smoke_icon.png">흡연부스</a></li>
-		</ul>
-	</nav>
 </header>
 
 <div id="content" class="content">
 	<div class="wrap">
-		<h2>쓰레기통</h2>	
 		<div id="map" style="width:100%;height:700px;"></div>
-		
 	</div>
 </div>
 <!-- 현재 위치를 표시합니다.  -->
 <script src="js/app.common.js"></script>
 
 <script>
-	var trash_pos = [
-    { latlng: new kakao.maps.LatLng(36.54442, 128.795577) },
-    { latlng: new kakao.maps.LatLng(36.544133, 128.794973) },
-    { latlng: new kakao.maps.LatLng(36.543585, 128.795544) },
-    { latlng: new kakao.maps.LatLng(36.542851, 128.795723) },
-    { latlng: new kakao.maps.LatLng(36.541005, 128.794158) },
-    { latlng: new kakao.maps.LatLng(36.540518, 128.793954) },
-    { latlng: new kakao.maps.LatLng(36.540190, 128.795187) },
-    { latlng: new kakao.maps.LatLng(36.540582, 128.794343) },
-    { latlng: new kakao.maps.LatLng(36.540469, 128.798343) }
-	] 
 	var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
 		mapOption = { 
 			center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
@@ -119,6 +101,7 @@
 	</script>
 
 <!-- 쓰레기통 위치를 표시합니다.  -->
+<script src="db/trashlocList.js"></script>
 <script>
 
 var imageSrc = './lib/img/trash_icon.png', // 마커이미지의 주소입니다    
