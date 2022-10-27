@@ -4,7 +4,8 @@
 var trash_pos = new Array();
 
 var trash_pos = [
-    { latlng: new kakao.maps.LatLng(36.54442, 128.795577) },
+    { latlng: new kakao.maps.LatLng(36.54442, 128.795577),
+    img: "./lib/loc_img/trash_1.jpg"},
     { latlng: new kakao.maps.LatLng(36.544133, 128.794973) },
     { latlng: new kakao.maps.LatLng(36.543585, 128.795544) },
     { latlng: new kakao.maps.LatLng(36.542851, 128.795723) },

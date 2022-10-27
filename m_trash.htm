@@ -17,21 +17,10 @@
 
 <body>
 
-<header>
-	<div class = "menu">
-		<span class="show_menu">menu</span>
-		<div class="menu_content">
-			<a href="#" id="appMenu0">화장실</a>
-			<a href="m_trash.htm?menu=1" id="appMenu1">쓰레기통</a>
-			<a href="m_car.htm" id="appMenu2">주차장</a>
-			<a href="m_smoke.htm" id="appMenu3">흡연부스</a>
-		</div>
-	</div>
-</header>
-
 <div id="content" class="content">
 	<div class="wrap">
-		<div id="map" style="width:100%;height:700px;"></div>
+		<div id="map" ></div>
+		
 	</div>
 </div>
 <!-- 현재 위치를 표시합니다.  -->
@@ -99,19 +88,20 @@
 		map.setCenter(locPosition); 
 	}    
 	</script>
-
-<!-- 쓰레기통 위치를 표시합니다.  -->
 <script src="db/trashlocList.js"></script>
+<!-- 쓰레기통 위치를 표시합니다.  -->
 <script>
+var infoTitle = document.querySelectorAll('.info-title');
+
 
 var imageSrc = './lib/img/trash_icon.png', // 마커이미지의 주소입니다    
     imageSize = new kakao.maps.Size(20, 20), // 마커이미지의 크기입니다
-    imageOption = {offset: new kakao.maps.Point(27, 69)}; // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.	
+    imageOption = {offset: new kakao.maps.Point(10, 10)}; // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.	
 
 var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize, imageOption);
 
 var infowindow = new kakao.maps.InfoWindow({
-            content: "쓰레기통" // 인포윈도우에 표시할 내용
+            content: '<div class="info-title">쓰레기통</span>' // 인포윈도우에 표시할 내용
         });
 
 Object.keys(trash_pos).forEach( key =>{
@@ -154,7 +144,7 @@ Object.keys(trash_pos).forEach( key =>{
 	bodyContent.appendChild(imgDiv);
 
 	var imgContent = document.createElement("img");
-	imgContent.setAttribute("src", "/lib/img/trash_icon.png");
+	imgContent.setAttribute("src", trash_pos[key].img);
 	imgContent.setAttribute("width", "73");
 	imgContent.setAttribute("heigth", "70");
 	imgDiv.appendChild(imgContent);

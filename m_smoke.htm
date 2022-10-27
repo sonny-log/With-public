@@ -6,32 +6,16 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/style.css">
+    
     <script src="js/jquery.min.js"></script>
     <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=980cb5bdc84e332d75c476760f95cb73"></script>
    
 </head>
 <body>
-    <header>
-        <div class="wrap">
-            <a href="index.htm"><h1 id="docTitle"></h1></a>
-            <a href="#" class="Left"><img src="lib/img/arrow_left.png" alt="back" onClick="javascript:history.back(-1);"></a>
-            
-        </div>
-    
-        <nav>
-            <ul class="wrap">
-                <li id="menuOn_0"><a href="#" id="appMenu0"><img src="lib/img/toilet_icon.png">화장실</a></li>
-                <li id="menuOn_1"><a href="m_trash.htm?menu=1" id="appMenu1"><img src="lib/img/trash_icon.png">쓰레기통</a></li>
-                <li id="menuOn_2"><a href="m_car.htm" id="appMenu2"><img src="lib/img/car_icon.png">주차장</a></li>
-                <li id="menuOn_3"><a href="m_smoke.htm" id="appMenu3"><img src="lib/img/smoke_icon.png">흡연부스</a></li>
-            </ul>
-        </nav>
-    </header>
 
     <div id="content" class="content">
         <div class="wrap">
-            <h2>흡연구역</h2>	
-            <div id="map" style="width:100%;height:700px;"></div>
+            <div id="map" ></div>
             
         </div>
     </div>
@@ -106,13 +90,13 @@
 
     var imageSrc = './lib/img/smoke_icon.png', // 마커이미지의 주소입니다    
         imageSize = new kakao.maps.Size(30, 30), // 마커이미지의 크기입니다
-        imageOption = {offset: new kakao.maps.Point(27, 69)}; // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.	
+        imageOption = {offset: new kakao.maps.Point(15, 15)}; // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.	
 
     var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize, imageOption);
 
 
     var infowindow = new kakao.maps.InfoWindow({
-            content: "흡연부스" // 인포윈도우에 표시할 내용
+            content: '<div class="info-title">흡연부스</span>' // 인포윈도우에 표시할 내용
         });
 
     Object.keys(pos_smoke).forEach( key =>{
