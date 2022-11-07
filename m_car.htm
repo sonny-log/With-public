@@ -3,9 +3,6 @@
 <head>
 <title></title>
 <meta charset="utf-8">
-
-<!-- <meta http-equiv="Content-Security-Policy" content="default-src *; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' 'unsafe-eval'">-->
-
 <meta name="msapplication-tap-highlight" content="no">
 <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1.0, minimum-scale=1.0, width=device-width, viewport-fit=cover">
 <meta name="color-scheme" content="light dark">
@@ -101,7 +98,7 @@ var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize, imageOption);
 
 
 var infowindow = new kakao.maps.InfoWindow({
-            content: '<div class="info-title">주차장</span>' // 인포윈도우에 표시할 내용
+            content: '<div class="info-title">주차장</div>' // 인포윈도우에 표시할 내용
         });
     Object.keys(pos_car).forEach( key =>{
         var car_marker = new kakao.maps.Marker({
@@ -209,8 +206,8 @@ var infowindow = new kakao.maps.InfoWindow({
 <script>
 
 var handicap_image = './lib/img/handicap_icon.png', // 마커이미지의 주소입니다    
-    handicap_imageSize = new kakao.maps.Size(20, 20), // 마커이미지의 크기입니다
-    handicap_imageOption = {offset: new kakao.maps.Point(27, 69)}; // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.	
+    handicap_imageSize = new kakao.maps.Size(25, 25), // 마커이미지의 크기입니다
+    handicap_imageOption = {offset: new kakao.maps.Point(15, 15)}; // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.	
 
 var markerImage = new kakao.maps.MarkerImage(handicap_image, handicap_imageSize,handicap_imageOption);
 

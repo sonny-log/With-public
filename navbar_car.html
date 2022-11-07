@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=980cb5bdc84e332d75c476760f95cb73"></script>
+	<link rel="stylesheet" href="css/style.css">
+	<title></title>
+</head>
+<body>
+	<script src="js/app.common.js"></script>
+	  <div class="dropdown">
+		<button class="dropbtn">
+		  <span class="dropbtn_content" onmouseover="dropdown()">Select a menu</span>
+		  <span class="drop icon" style="font-family: Material Icons; font-size : 16px; color : #3b3b3b; float:right;"
+			>arrow_drop_down</span>
+		</button>
+	  </div>
+		<div class="dropdown-content">
+		  <div class="fastfood" onclick="showMenu(this.innerText)">화장실</div>
+		  <div class="fastfood" onclick="showMenu(this.innerText)">흡연부스</div>
+		  <div class="fastfood" onclick="showMenu(this.innerText)">쓰레기통</div>
+		  <div class="fastfood" onclick="showMenu(this.innerText)">주차장</div>
+		</div>
+	  </div>
+	  <div id="skech_map">
+		<script>
+			$(document).ready(function(){
+				$("#skech_map").load("m_car.htm");
+				$(".dropbtn_content").text("주차장");
+			});
+		</script>
+	  </div>
+<script>
+	
+</script>
+  <script>
+	window.onload=()=>{
+      document.querySelector('.dropbtn_content').onmouseover = ()=>{
+        dropdown();
+      }
+      document.getElementsByClassName('fastfood').onclick = ()=>{
+        showMenu(value);
+      };
+      dropdown = () => {
+        var v = document.querySelector('.dropdown-content');
+        var dropbtn = document.querySelector('.dropbtn')
+        v.classList.toggle('show');
+      }
+
+      showMenu=(value)=>{
+        var dropbtn_content = document.querySelector('.dropbtn_content');
+        var dropbtn_click = document.querySelector('.dropbtn_click');
+        var dropbtn = document.querySelector('.dropbtn');
+        dropbtn_content.innerText = value;
+        dropbtn_content.style.color = '#252525';
+
+		if(value=="흡연부스"){
+			$(document).ready(function(){
+				$("#skech_map").load("m_smoke.htm");
+			})
+		}else if(value=="쓰레기통"){
+			$(document).ready(function(){
+				$("#skech_map").load("m_trash.htm");
+			})
+		}else if(value=="주차장"){
+			$(document).ready(function(){
+				$("#skech_map").load("m_car.htm");
+			})
+		}else if(value=="화장실"){
+			$(document).ready(function(){
+				$("#skech_map").load("m_rest.htm");
+			})
+		} 
+			
+    }
+}
+    window.onclick= (e)=>{
+      if(!e.target.matches('.dropbtn_click')){
+        var dropdowns = document.getElementsByClassName("dropdown-content");
+        var dropbtn_content = document.querySelector('.dropbtn_content');
+        var dropbtn_click = document.querySelector('.dropbtn_click');
+        var dropbtn = document.querySelector('.dropbtn');
+
+        var i;
+        for (i = 0; i < dropdowns.length; i++) {
+          var openDropdown = dropdowns[i];
+          if (openDropdown.classList.contains('show')) {
+            openDropdown.classList.remove('show');
+          }
+        }
+      }
+    }</script>
+</body>
+</html>
+

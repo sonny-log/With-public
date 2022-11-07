@@ -3,18 +3,23 @@
 @import url(https://cdn.jsdelivr.net/gh/moonspam/NanumSquare@1.0/nanumsquare.css);
 @import url('https://fonts.googleapis.com/icon?family=Material+Icons');
 
-*{font-family: 'NanumSquare';}
+*{font-family: 'NanumSquare'; }
 .dropdown{
 position : relative;
-display : inline-block;
-}
+display : flex;
+justify-content: center;
 
+}
+html{
+ background-color: #263379;
+}
 .dropbtn_icon{
 font-family : 'Material Icons';
 }
 .dropbtn{
 display : block;
 border: none;
+border-radius: 5px;
 background-color: #fcfcfc;
 font-weight: 400;
 color : rgb(124, 124, 124);
@@ -26,10 +31,17 @@ cursor : pointer;
 font-size : 20px;
 z-index :2;
 position : relative;
+text-align: center;
+}
+.wrap_content{
+    
 }
 .dropdown-content{
+width:720px;
 display : none;
-position: absolute;
+position:absolute;
+left: 50%;
+transform: translate(-50%, 0%);
 z-index :1;
 font-weight: 400;
 background-color: #fcfcfc;
@@ -54,6 +66,7 @@ text-decoration : none;
 color : rgb(37, 37, 37);
 font-size: 16px;
 padding : 12px 20px;
+
 }
 .dropdown-content div:hover{
 background-color: rgb(226, 226, 226);
@@ -65,7 +78,7 @@ width: 150px;
 }
 
 
-.over_wrap {position:relative;bottom:125px;right:10px;border-radius:6px;line-height:30px;}
+.over_wrap {position:relative;bottom:70px;right:0px;border-radius:6px;line-height:30px;}
 .over_wrap * {padding: 0;margin: 0;}
 .over_wrap .over_info {width: 170px;height: 120px;border-radius: 5px;border-bottom: 2px solid #ccc;border-right: 1px solid #ccc;overflow: hidden;background: #fff;}
 .over_wrap .over_info:nth-child(1) {border: 0;box-shadow: 0px 1px 2px rgb(240, 238, 238);}
@@ -80,14 +93,19 @@ width: 150px;
 
 #map{
     z-index :0;
-    width:620px;
-    height:700px;
-    position: absolute;
-    border-radius: 15px;
+    width:720px;
+    height:1233px;
+    margin: 0 auto;
+    border-radius: 5px;
 }
 
 .info-title {
     width:150px;
+    text-align:center;
+    padding-top:4px;
+}
+.user_loc {
+    width:200px;
     text-align:center;
     padding-top:4px;
 }
